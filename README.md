@@ -38,7 +38,7 @@
 
 ```bash
 # 下载安装包
-wget -qO cc-haha.deb "https://github.com/1williamaoayers/cc-haha-linux/releases/latest/download/Claude-Code-Haha_0.2.5_linux_x64_deb.deb"
+wget -qO cc-haha.deb "https://github.com/1williamaoayers/cc-haha-linux/releases/latest/download/Claude-Code-Haha_0.2.7_linux_x64_deb.deb"
 
 # 安装
 dpkg -i cc-haha.deb
