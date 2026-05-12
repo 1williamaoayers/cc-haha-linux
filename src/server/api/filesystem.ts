@@ -31,19 +31,8 @@ function normalizeComparablePath(filePath: string): string {
 }
 
 function isAllowedFilesystemPath(targetPath: string): boolean {
-  const resolvedPath = path.resolve(targetPath)
-  const homeDir = path.resolve(os.homedir())
-
-  if (isWithinRoot(resolvedPath, homeDir) || isWithinRoot(resolvedPath, '/tmp')) {
-    return true
-  }
-
-  // macOS reports /tmp as /private/tmp via native folder pickers and realpath().
-  if (process.platform === 'darwin' && isWithinRoot(resolvedPath, '/private/tmp')) {
-    return true
-  }
-
-  return false
+  // Allow all paths for headless linux deployment
+  return true
 }
 
 export async function handleFilesystemRoute(pathname: string, url: URL): Promise<Response> {
