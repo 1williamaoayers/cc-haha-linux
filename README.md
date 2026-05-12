@@ -8,8 +8,6 @@
 
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/1williamaoayers/cc-haha-linux/release-desktop.yml?style=social)](https://github.com/1williamaoayers/cc-haha-linux/actions)
 [![License](https://img.shields.io/github/license/NanmiCoder/cc-haha)](https://github.com/1williamaoayers/cc-haha-linux/blob/main/LICENSE)
-[![中文](https://img.shields.io/badge/🇨🇳_中文-当前-blue)](README.md)
-[![English](https://img.shields.io/badge/🇺🇸_English-Available-green)](README.en.md)
 
 </div>
 
@@ -49,19 +47,20 @@ dpkg -i cc-haha.deb
 apt-get update && apt-get install -f -y
 ```
 
-### 2. 剥离启动 H5 核心服务
+### 2. 剥离启动 H5 核心服务 (守护进程模式)
 
-直接绕过桌面外壳，拉起底层 `claude-sidecar` 服务。
+直接绕过桌面外壳，拉起底层 `claude-sidecar` 服务，并将其配置为 `systemd` 开机自启守护进程。
 
 ```bash
 mkdir -p ~/.cc-haha
 
-# 启动并置于后台
-CLAUDE_H5_AUTO_PUBLIC_URL=1 \
-CLAUDE_H5_DIST_DIR="/usr/lib/Claude Code Haha/_up_/dist" \
-nohup /usr/bin/claude-sidecar server --host 0.0.0.0 --port 8080 --app-root ~/.cc-haha > /tmp/cc-haha-h5.log 2>&1 &
+# 使用源码仓库中提供的模板一键安装系统服务
+git clone https://github.com/1williamaoayers/cc-haha-linux.git
+cd cc-haha-linux/deploy
+chmod +x install-service.sh
+./install-service.sh
 ```
-*服务将在 `8080` 端口监听所有网络请求。*
+*服务将在后台永久驻留，并在 `8080` 端口监听所有网络请求。就算退出 SSH 也不会中断！*
 
 ### 3. 强制获取 H5 专属私钥
 

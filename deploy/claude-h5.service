@@ -1,0 +1,22 @@
+[Unit]
+Description=Claude Code Haha H5 Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+# 替换为实际安装后的路径，如果通过 deb 安装，通常可以直接使用 /usr/bin/claude-sidecar
+WorkingDirectory=/root
+Environment="PATH=/root/.bun/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Environment="CLAUDE_H5_AUTO_PUBLIC_URL=1"
+Environment="CLAUDE_H5_DIST_DIR=/usr/lib/Claude Code Haha/_up_/dist"
+# 如果配置了自定义 API Endpoint，可以在下面解除注释并填入
+# Environment="ANTHROPIC_BASE_URL=http://your-proxy-ip:8317/v1"
+# Environment="ANTHROPIC_API_KEY=your_api_key"
+
+ExecStart=/usr/bin/claude-sidecar server --host 0.0.0.0 --port 8080 --app-root /root/.cc-haha
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
