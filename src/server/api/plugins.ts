@@ -1,6 +1,7 @@
 import type { PluginScope } from '../../utils/plugins/schemas.js'
 import { ApiError, errorResponse } from '../middleware/errorHandler.js'
 import { PluginService } from '../services/pluginService.js'
+import { installPlugin } from '../../services/plugins/pluginCliCommands.js'
 
 const pluginService = new PluginService()
 
@@ -50,6 +51,8 @@ export async function handlePluginsApi(
           return Response.json(
             await pluginService.updatePlugin(pluginId, scope as PluginScope | undefined),
           )
+        case 'install':
+          return Response.json(await installPlugin(pluginId, scope as 'user' | 'project' | 'local'))
         case 'uninstall':
           return Response.json(
             await pluginService.uninstallPlugin(
